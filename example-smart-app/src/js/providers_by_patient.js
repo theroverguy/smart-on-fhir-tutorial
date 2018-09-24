@@ -22,9 +22,16 @@
                     }
                   });
 
+        var cp = smart.patient.api.fetchAll({
+            type: 'CarePlan',
+            query: {
+              patient: {$patient}
+            }
+          });
+        
         $.when(pt, obv).fail(onError);
 
-        $.when(pt, obv).done(function(patient, obv) {
+        $.when(pt, obv, cp).done(function(patient, obv, cp) {
           var byCodes = smart.byCodes(obv, 'code');
           var gender = patient.gender;
 
